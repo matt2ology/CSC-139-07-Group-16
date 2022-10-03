@@ -15,7 +15,7 @@ Repository for group assignments for CSC 139 Operating System Principles - Group
 ## Setup
 
 Members are free to use their preferred IDE, text editors, and/or setup;
-however, to those who are new and need something that "just works" than I
+however, to those who are new and need something that "just works" then I
 suggest using [Dev-C++](http://www.bloodshed.net/) (an Open Source C/C++ IDE
 for Windows).
 
