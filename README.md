@@ -11,6 +11,13 @@ Repository for group assignments for CSC 139 Operating System Principles - Group
 - Ronaldo Ramirez
 - Sam Lam
 
+## Setup
+
+Members are free to use their preferred IDE, text editors, and/or setup;
+however, to those who are new and need something that "just works" than I
+suggest using [Dev-C++](http://www.bloodshed.net/) (an Open Source C/C++ IDE
+for Windows).
+
 ## Assignments
 
 - [ ] Group Assignment-1: Due Oct 7 at 11:59pm
