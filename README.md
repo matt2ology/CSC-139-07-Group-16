@@ -3,13 +3,13 @@ Repository for group assignments for CSC 139 Operating System Principles - Group
 
 ## Group Members
 
-Abdul Tareq Khaliq
-Haroon Mohammed Hussein
-Matthew Mendoza
-Mueed Khalid
-Rachel Mao
-Ronaldo Ramirez
-Sam Lam
+- Abdul Tareq Khaliq
+- Haroon Mohammed Hussein
+- Matthew Mendoza
+- Mueed Khalid
+- Rachel Mao
+- Ronaldo Ramirez
+- Sam Lam
 
 ## Assignments
 
