@@ -23,9 +23,16 @@ to argv[0], argv[1], argv[2], and argv[3])
 #include <windows.h> 	// for SetConsoleTextAttribute function (change text color)
 #include <stdio.h>	    // for system function (execute command) and exit function (exit program)
 
+DWORD WINAPI Execute(LPVOID Param) {
+	cout << system("dir");
+	return 0;
+}
+
 int main(int argc, char const *argv[])
 {
 	// Create an infinite loop
+	
+
 	while (TRUE)
 	{
 		// use fgets() to read a line of input from the user
@@ -43,6 +50,12 @@ int main(int argc, char const *argv[])
 			token = strtok(NULL, " \n");
 			i++;
 		}
+
+		DWORD ThreadId;
+		Handle ThreadHandle;
+		ThreadHandle = CreateThread(NULL, 0, Execute, &Param, 0, &ThreadId);
+		WaitForSingleObject(ThreadHandle, INFINITE);
+		CloseHandle(ThreadHandle);
 
 		// compare the user input against the list of supported commands
 		// execute the command entered by the user
