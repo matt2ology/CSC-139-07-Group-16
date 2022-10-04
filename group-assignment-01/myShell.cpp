@@ -51,11 +51,13 @@ int main(int argc, char const *argv[])
 			i++;
 		}
 
-		DWORD ThreadId;
-		HANDLE ThreadHandle;
+		DWORD ThreadId; // thread identifier
+		HANDLE ThreadHandle; // thread handle (pointer to thread) 
+		// create thread and execute function Execute with args as parameter
 		ThreadHandle = CreateThread(NULL, 0, Execute, &args, 0, &ThreadId);
+		// wait for thread to finish executing before continuing main thread execution
 		WaitForSingleObject(ThreadHandle, INFINITE);
-		CloseHandle(ThreadHandle);
+		CloseHandle(ThreadHandle); // close thread handle (pointer to thread) 
 		// compare the user input against the list of supported commands
 		// execute the command entered by the user
 		// exit the program when the user enters "exit"
@@ -127,3 +129,6 @@ int main(int argc, char const *argv[])
 		{
 			printf("Command not found. Please try again.\n");
 		}
+	}
+	return EXIT_SUCCESS;
+}
