@@ -22,6 +22,14 @@ to argv[0], argv[1], argv[2], and argv[3])
 #include <cstring> 		// for strtok function (string tokenizer) and strcpy function (string copy) 
 #include <windows.h> 	// for SetConsoleTextAttribute function (change text color)
 #include <stdio.h>	    // for system function (execute command) and exit function (exit program)
+#include <vector>
+
+using namespace std;
+
+DWORD WINAPI Execute(LPVOID Param) {
+	//get param and execute system(param)
+	return 0;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -35,7 +43,6 @@ int main(int argc, char const *argv[])
 
 		// use strtok() to parse the user input into its arguments
 		char *token = strtok(input, " \n");
-		char *args[4];
 		int i = 0;
 		while (token != NULL)
 		{
@@ -44,10 +51,15 @@ int main(int argc, char const *argv[])
 			i++;
 		}
 
+		DWORD ThreadId;
+		HANDLE ThreadHandle;
+		ThreadHandle = CreateThread(NULL, 0, Execute, &args, 0, &ThreadId);
+		WaitForSingleObject(ThreadHandle, INFINITE);
+		CloseHandle(ThreadHandle);
 		// compare the user input against the list of supported commands
 		// execute the command entered by the user
 		// exit the program when the user enters "exit"
-		if (strcmp(args[0], "dir") == 0)
+		f (strcmp(args[0], "dir") == 0)if (strcmp(args[0], "dir") == 0)
 		{
 			system("dir");
 		}
@@ -108,16 +120,10 @@ int main(int argc, char const *argv[])
 			strcat(command, " -n 4");
 			// execute the command
 			system(command);
-		}
-		else if (strcmp(args[0], "exit") == 0)
-		{
+		}{
 			break; // exit the program when the user enters "exit"
 		}
 		else
 		{
 			printf("Command not found. Please try again.\n");
 		}
-	}
-
-	return EXIT_SUCCESS;
-}
