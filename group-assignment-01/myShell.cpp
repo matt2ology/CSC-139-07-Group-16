@@ -17,23 +17,26 @@ assume that no more than four arguments will be used on the command line (i.e. s
 to argv[0], argv[1], argv[2], and argv[3])
 */
 
-#include <iostream>		// for cout, cin, endl etc.
-#include <string> 		// for string class and functions (e.g. getline)
-#include <cstring> 		// for strtok function (string tokenizer) and strcpy function (string copy) 
-#include <windows.h> 	// for SetConsoleTextAttribute function (change text color)
-#include <stdio.h>	    // for system function (execute command) and exit function (exit program)
-#include <vector>
+#include <iostream>	 // for cout, cin, endl etc.
+#include <string>	 // for string class and functions (e.g. getline)
+#include <cstring>	 // for strtok function (string tokenizer) and strcpy function (string copy)
+#include <windows.h> // for SetConsoleTextAttribute function (change text color)
+#include <stdio.h>	 // for system function (execute command) and exit function (exit program)
+#include <typeinfo>
 
 using namespace std;
-
-DWORD WINAPI Execute(LPVOID Param) {
-	//get param and execute system(param)
+DWORD WINAPI Execute(LPVOID Param)
+{
+	//	char* args = static_cast<char*>(Param);
+	//	char* arg = (char*)Param;
+	//	cout << typeid(arg).name();
+	cout << *(char *)Param;
 	return 0;
 }
-
 int main(int argc, char const *argv[])
 {
 	// Create an infinite loop
+
 	while (TRUE)
 	{
 		// use fgets() to read a line of input from the user
@@ -43,6 +46,7 @@ int main(int argc, char const *argv[])
 
 		// use strtok() to parse the user input into its arguments
 		char *token = strtok(input, " \n");
+		char *args[4];
 		int i = 0;
 		while (token != NULL)
 		{
@@ -50,18 +54,17 @@ int main(int argc, char const *argv[])
 			token = strtok(NULL, " \n");
 			i++;
 		}
-
-		DWORD ThreadId; // thread identifier
-		HANDLE ThreadHandle; // thread handle (pointer to thread) 
-		// create thread and execute function Execute with args as parameter
-		ThreadHandle = CreateThread(NULL, 0, Execute, &args, 0, &ThreadId);
-		// wait for thread to finish executing before continuing main thread execution
+		DWORD ThreadId;
+		HANDLE ThreadHandle;
+		ThreadHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Execute, args, 0, &ThreadId);
 		WaitForSingleObject(ThreadHandle, INFINITE);
-		CloseHandle(ThreadHandle); // close thread handle (pointer to thread) 
+		CloseHandle(ThreadHandle);
+
+		//		std::cout << "USER ARGS ARE " << args[0];
 		// compare the user input against the list of supported commands
 		// execute the command entered by the user
 		// exit the program when the user enters "exit"
-		f (strcmp(args[0], "dir") == 0)if (strcmp(args[0], "dir") == 0)
+		if (strcmp(args[0], "dir") == 0)
 		{
 			system("dir");
 		}
@@ -122,7 +125,9 @@ int main(int argc, char const *argv[])
 			strcat(command, " -n 4");
 			// execute the command
 			system(command);
-		}{
+		}
+		else if (strcmp(args[0], "exit") == 0)
+		{
 			break; // exit the program when the user enters "exit"
 		}
 		else
@@ -130,5 +135,6 @@ int main(int argc, char const *argv[])
 			printf("Command not found. Please try again.\n");
 		}
 	}
+
 	return EXIT_SUCCESS;
 }
