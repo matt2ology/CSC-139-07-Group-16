@@ -1,5 +1,13 @@
-/* Write a C/C++ program to implement an interactive shell in which users can
-execute commands.
+/*********************************************************************
+CSC 139 Operating System Principles - Section 07
+Group Assignment #01
+Group 16 Members:
+Abdul Tareq Khaliq, Haroon Mohammed Hussein, Matthew Mendoza,
+Mueed Khalid, Rachel Mao, Ronaldo Ramirez, Sam Lam
+----------------------------------------------------------------------
+A C/C++ program to implement an interactive shell in which users
+can execute commands.
+
 1. Call this program myShell.
 2. Create an infinite loop (while(1))
 	that repeatedly prompts the user to enter a command
@@ -7,21 +15,21 @@ execute commands.
 	Before executing the command entered by the user
 4. The command must be compared against the list of supported commands:
 	dir, help, vol, path, tasklist, notepad, echo, color, and ping
-5. Since some commands require more than one argument (e.g. echo, color, ping),
-	you will need to parse the user input into its arguments.
-	Consider using the strtok() function
+5. Since some commands require more than one argument
+	(e.g. echo, color, ping), you will need to parse the user input
+	into its arguments. using the strtok() function
 
-Assumptions: Assume arguments within myShell do not contain spaces. In other
-words, don't worry about parsing out quoted strings in your argument list. You may
-assume that no more than four arguments will be used on the command line (i.e. similar
-to argv[0], argv[1], argv[2], and argv[3])
-*/
+Assumptions: Assume arguments within myShell do not contain spaces.
+In other words, don't worry about parsing out quoted strings in your
+argument list. You may assume that no more than four arguments will
+be used on the command line (i.e. similar to argv[0], argv[1], argv[2], and argv[3])
+*********************************************************************/
 
-#include <iostream>		// for cout, cin, endl etc.
-#include <string> 		// for string class and functions (e.g. getline)
-#include <cstring> 		// for strtok function (string tokenizer) and strcpy function (string copy) 
-#include <windows.h> 	// for SetConsoleTextAttribute function (change text color)
-#include <stdio.h>	    // for system function (execute command) and exit function (exit program)
+#include <iostream>  // for cout, cin, endl etc.
+#include <string>    // for string class and functions (e.g. getline)
+#include <cstring>   // for strtok function (string tokenizer) and strcpy function (string copy) 
+#include <windows.h> // for SetConsoleTextAttribute function (change text color)
+#include <stdio.h>   // for system function (execute command) and exit function (exit program)
 
 int main(int argc, char const *argv[])
 {
