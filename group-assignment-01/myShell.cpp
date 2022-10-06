@@ -33,12 +33,13 @@ be used on the command line (i.e. similar to argv[0], argv[1], argv[2], and argv
 
 int main(int argc, char const *argv[])
 {
+	printf("Welcome to myShell\n");
 	// Create an infinite loop
-	while (TRUE)
+	while (1)
 	{
 		// use fgets() to read a line of input from the user
 		char input[100];
-		printf("myShell> ");
+		printf("==> ");
 		fgets(input, 100, stdin);
 
 		// use strtok() to parse the user input into its arguments
@@ -126,6 +127,7 @@ int main(int argc, char const *argv[])
 			printf("Command not found. Please try again.\n");
 		}
 	}
+	printf("Thanks for using myShell!\n");
 
 	return EXIT_SUCCESS;
 }
