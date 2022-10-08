@@ -32,19 +32,19 @@ be used on the command line (i.e. similar to argv[0], argv[1], argv[2], and argv
 #include <stdio.h>	 // for system function (execute command) and exit function (exit program)
 
 using namespace std;
-char input[100];
-char *args[4];
+char input[100]; // input from user (command line) is stored here (max 100 characters)
+char *args[4];   // arguments from user (command line) are stored here (max 4 arguments)
 
 // Function prototypes for the threads that will execute system calls
-DWORD WINAPI sysDir(LPVOID);
-DWORD WINAPI sysHelp(LPVOID);
-DWORD WINAPI sysVol(LPVOID);
-DWORD WINAPI sysPath(LPVOID);
-DWORD WINAPI sysTaskList(LPVOID);
-DWORD WINAPI sysNotepad(LPVOID);
-DWORD WINAPI sysEcho(LPVOID);
-DWORD WINAPI sysColor(LPVOID);
-DWORD WINAPI sysPing(LPVOID);
+DWORD WINAPI sysDir(LPVOID);      // execute dir command (list files in current directory)
+DWORD WINAPI sysHelp(LPVOID);     // execute help command (display list of supported commands)
+DWORD WINAPI sysVol(LPVOID);      // execute vol command (volume label)
+DWORD WINAPI sysPath(LPVOID);     // execute path command (display current path)
+DWORD WINAPI sysTaskList(LPVOID); // execute tasklist command (list running processes)
+DWORD WINAPI sysNotepad(LPVOID);  // execute notepad command (open notepad)
+DWORD WINAPI sysEcho(LPVOID);     // execute echo command (display message)
+DWORD WINAPI sysColor(LPVOID);    // execute color command (change text color)
+DWORD WINAPI sysPing(LPVOID);     // execute ping command (ping a host)
 
 int main(int argc, char const *argv[])
 {
