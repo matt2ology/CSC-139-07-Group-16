@@ -25,7 +25,6 @@ argument list. You may assume that no more than four arguments will
 be used on the command line (i.e. similar to argv[0], argv[1], argv[2], and argv[3])
 *********************************************************************/
 
-
 #include <iostream>	 // for cout, cin, endl etc.
 #include <string>	 // for string class and functions (e.g. getline)
 #include <cstring>	 // for strtok function (string tokenizer) and strcpy function (string copy)
@@ -46,7 +45,6 @@ DWORD WINAPI sysNotepad(LPVOID);
 DWORD WINAPI sysEcho(LPVOID);
 DWORD WINAPI sysColor(LPVOID);
 DWORD WINAPI sysPing(LPVOID);
-
 
 int main(int argc, char const *argv[])
 {
@@ -209,7 +207,7 @@ int main(int argc, char const *argv[])
 				NULL,		// Security attributes
 				0,			// Stack size
 				sysPing,	// Thread function
-				NULL,	// Parameter to thread function
+				NULL,		// Parameter to thread function
 				0,			// Creation flags
 				&ThreadID); // Thread identifier
 			if (ThreadHandle != NULL)
