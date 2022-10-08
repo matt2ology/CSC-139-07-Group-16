@@ -25,27 +25,48 @@ argument list. You may assume that no more than four arguments will
 be used on the command line (i.e. similar to argv[0], argv[1], argv[2], and argv[3])
 *********************************************************************/
 
-#include <iostream>  // for cout, cin, endl etc.
-#include <string>    // for string class and functions (e.g. getline)
-#include <cstring>   // for strtok function (string tokenizer) and strcpy function (string copy) 
+
+#include <iostream>	 // for cout, cin, endl etc.
+#include <string>	 // for string class and functions (e.g. getline)
+#include <cstring>	 // for strtok function (string tokenizer) and strcpy function (string copy)
 #include <windows.h> // for SetConsoleTextAttribute function (change text color)
-#include <stdio.h>   // for system function (execute command) and exit function (exit program)
+#include <stdio.h>	 // for system function (execute command) and exit function (exit program)
+
+using namespace std;
+char input[100];
+char *args[4];
+
+// Function prototypes for the threads that will execute system calls
+DWORD WINAPI sysDir(LPVOID);
+DWORD WINAPI sysHelp(LPVOID);
+DWORD WINAPI sysVol(LPVOID);
+DWORD WINAPI sysPath(LPVOID);
+DWORD WINAPI sysTaskList(LPVOID);
+DWORD WINAPI sysNotepad(LPVOID);
+DWORD WINAPI sysEcho(LPVOID);
+DWORD WINAPI sysColor(LPVOID);
+DWORD WINAPI sysPing(LPVOID);
+
 
 int main(int argc, char const *argv[])
 {
 	printf("Welcome to myShell\n");
 	// Create an infinite loop
-	while (1)
+
+	DWORD ThreadID;
+	HANDLE ThreadHandle;
+	while (TRUE)
 	{
 		// use fgets() to read a line of input from the user
-		char input[100];
+		// char input[100];
 		printf("==> ");
+
 		fgets(input, 100, stdin);
 
 		// use strtok() to parse the user input into its arguments
 		char *token = strtok(input, " \n");
-		char *args[4];
 		int i = 0;
+
 		while (token != NULL)
 		{
 			args[i] = token;
@@ -53,70 +74,149 @@ int main(int argc, char const *argv[])
 			i++;
 		}
 
-		// compare the user input against the list of supported commands
-		// execute the command entered by the user
-		// exit the program when the user enters "exit"
 		if (strcmp(args[0], "dir") == 0)
 		{
-			system("dir");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysDir,		// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "help") == 0)
 		{
-			system("help");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysHelp,	// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "vol") == 0)
 		{
-			system("vol");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysVol,		// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "path") == 0)
 		{
-			system("path");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysPath,	// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "tasklist") == 0)
 		{
-			system("tasklist");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		 // Security attributes
+				0,			 // Stack size
+				sysTaskList, // Thread function
+				NULL,		 // Parameter to thread function
+				0,			 // Creation flags
+				&ThreadID);	 // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "notepad") == 0)
 		{
-			system("notepad");
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysNotepad, // Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "echo") == 0)
 		{
-			printf("%s %s %s %s", args[1], args[2], args[3], args[4]);
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysEcho,	// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "color") == 0) // change text color
 		{
-			// convert string to int
-			int color = atoi(args[1]);
-			// change text color
-			// 0 = black
-			// 1 = blue
-			// 2 = green
-			// 3 = cyan
-			// 4 = red
-			// 5 = purple
-			// 6 = yellow
-			// 7 = white
-			// 8 = gray
-			// 9 = light blue
-			// 10 = light green
-			// 11 = light cyan
-			// 12 = light red
-			// 13 = light purple
-			// 14 = light yellow
-			// 15 = bright white
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysColor,	// Thread function
+				NULL,		// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "ping") == 0)
 		{
-			// use strcpy() to copy the user input into a new string
-			char command[100];
-			strcpy(command, "ping ");
-			// use strcat() to concatenate the user input into the new string
-			strcat(command, args[1]);
-			strcat(command, " -n 4");
-			// execute the command
-			system(command);
+			// CreateThread() function and arguments adapted from ch4 PowerPoint slides
+			ThreadHandle = CreateThread(
+				NULL,		// Security attributes
+				0,			// Stack size
+				sysPing,	// Thread function
+				NULL,	// Parameter to thread function
+				0,			// Creation flags
+				&ThreadID); // Thread identifier
+			if (ThreadHandle != NULL)
+			{
+				WaitForSingleObject(ThreadHandle, INFINITE); // Wait for thread to finish
+				CloseHandle(ThreadHandle);
+			}
 		}
 		else if (strcmp(args[0], "exit") == 0)
 		{
@@ -130,4 +230,67 @@ int main(int argc, char const *argv[])
 	printf("Thanks for using myShell!\n");
 
 	return EXIT_SUCCESS;
+}
+
+DWORD WINAPI sysDir(LPVOID Parameter)
+{
+	system("dir");
+	return 0;
+}
+DWORD WINAPI sysHelp(LPVOID Parameter)
+{
+	char command[100];
+	strcpy(command, "help ");
+	strcat(command, args[1]);
+	system(command);
+	return 0;
+}
+DWORD WINAPI sysVol(LPVOID Parameter)
+{
+	system(input);
+	return 0;
+}
+DWORD WINAPI sysPath(LPVOID Parameter)
+{
+	system("path");
+	return 0;
+}
+DWORD WINAPI sysTaskList(LPVOID Parameter)
+{
+	system("tasklist");
+	return 0;
+}
+DWORD WINAPI sysNotepad(LPVOID Parameter)
+{
+	system("notepad");
+	return 0;
+}
+DWORD WINAPI sysEcho(LPVOID Parameter)
+{
+	char command[100];
+	strcpy(command, "echo ");
+	strcat(command, args[1]);
+	strcat(command, " ");
+	strcat(command, args[2]);
+	strcat(command, " ");
+	strcat(command, args[3]);
+	system(command);
+	return 0;
+}
+DWORD WINAPI sysColor(LPVOID Parameter)
+{
+	int color = atoi(args[1]);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+	return 0;
+}
+DWORD WINAPI sysPing(LPVOID Parameter)
+{
+	char command[100];
+	strcpy(command, "ping ");
+	// use strcat() to concatenate the user input into the new string
+	strcat(command, args[1]);
+	strcat(command, " -n 4");
+	// execute the command
+	system(command);
+	return 0;
 }
