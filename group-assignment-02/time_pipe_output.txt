@@ -1,0 +1,11 @@
+total 1656
+-rwxr-xr-x  1 mac  staff    9020 Oct 23 22:16 a.out
+-rw-r--r--  1 mac  staff  798359 Oct  4 21:55 group_assignment_02.pdf
+-rw-r--r--  1 mac  staff     156 Oct  4 21:55 makefile
+-rwxr-xr-x  1 mac  staff    9020 Oct 12 18:47 time_pipe
+-rw-r--r--  1 mac  staff    3222 Oct 12 18:51 time_pipe.c
+-rw-r--r--  1 mac  staff       0 Oct 23 22:17 time_pipe_output.txt
+-rwxr-xr-x  1 mac  staff    9132 Oct  8 21:32 time_shm
+-rw-r--r--  1 mac  staff    3263 Oct 16 17:05 time_shm.c
+
+Elapsed time: 0.009997 seconds
