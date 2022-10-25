@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE); // exit with a failure status code
     }
 
-    if (pid == 0) // child 
+    if (pid == 0) // child
     {
 
         char *arr[argc - 1];
@@ -83,10 +83,10 @@ int main(int argc, char const *argv[])
                                     // the termination of the child process
         // elapsed_time = end_time - start_time
         timersub(&end_time, &start_time, &elapsed_time);
-        // type cast the time to a long int and print it to the screen
-        printf("\n Elapsed time: %ld.%06ld seconds \n",
-               (long int)elapsed_time.tv_sec,
-               (long int)elapsed_time.tv_usec);
+        // print the elapsed time in seconds and microseconds (tv_sec.tv_usec)
+        printf("Elapsed time: %ld.%06ld seconds (tv_sec.tv_usec) ",
+               (long)elapsed_time.tv_sec,
+               (long)elapsed_time.tv_usec);
         exit(EXIT_SUCCESS); // exit with a success
     }
 }
