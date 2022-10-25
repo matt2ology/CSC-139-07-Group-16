@@ -24,9 +24,8 @@ int main(int argc, char const *argv[])
     pid_t pid;            // pid is a process ID
     struct timeval *tv;   // tv is a struct timeval object
     char buffer[LB_SIZE]; // buffer is a character array of size LB_SIZE
-    time_t nowtime;       // nowtime is a time_t object
-    struct tm *nowtm;     // nowtm is a struct tm object
-    char tmbuf[64];       // tmbuf is a character array of size 64
+    // char tmbuf[64];       // tmbuf is a character array of size 64
+    struct timeval end_time, elapsed_time;
 
     shmid = shmget(IPC_PRIVATE, sizeof(struct timeval), 0600); // shmid is set to the shared memory ID
     if (shmid == -1)
@@ -60,17 +59,9 @@ int main(int argc, char const *argv[])
     else
     {                                 // if pid is not 0
         wait(NULL);                   // wait for the child process to terminate
-        nowtime = tv->tv_sec;         // nowtime is set to the number of elapsed seconds
-        nowtm = localtime(&nowtime);  // nowtm is set to the local time
-        strftime(tmbuf, sizeof(tmbuf), "%Y-%m-%d %H %M %S", nowtm); // tmbuf is set to the formatted time
-        /* print the formatted time, the command, and the arguments to the
-        command to stdout (the terminal) with a space between each argument and
-        a newline at the end of the line (the newline is included in the format string)
-        (the %s is a placeholder for a string and the %ld is a placeholder for a long integer)
-        (the %06ld is a placeholder for a long integer with a minimum of 6 digits and leading zeros)
-        (the %Y-%m-%d %H %M %S is a placeholder for the year, month, day, hour, minute, and second)
-        */
-        printf("%s.%06ld %s %s %s %s ", tmbuf, tv->tv_usec, argv[1], argv[2], argv[3], argv[4]);
+        gettimeofday(&end_time, NULL);
+        timersub(&end_time, &(*tv), &elapsed_time);
+        printf("\nElapsed time: %d.%06d seconds\n", elapsed_time.tv_sec, elapsed_time.tv_usec);
         shmdt(tv);                    // detach the shared memory
         shmctl(shmid, IPC_RMID, NULL); // remove the shared memory
     }
