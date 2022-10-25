@@ -1,0 +1,11 @@
+total 1800
+-rwxr-xr-x  1 mueedkhalid  staff   50000 Oct 24 22:21 a
+-rw-r--r--  1 mueedkhalid  staff  798359 Oct  3 15:52 group_assignment_02.pdf
+-rw-r--r--  1 mueedkhalid  staff     156 Oct 22 15:27 makefile
+-rwxr-xr-x  1 mueedkhalid  staff   50064 Oct 24 22:18 pipe
+-rw-r--r--  1 mueedkhalid  staff    3222 Oct 22 15:27 time_pipe.c
+-rw-r--r--  1 mueedkhalid  staff     513 Oct 24 19:25 time_pipe_output.txt
+-rw-r--r--  1 mueedkhalid  staff    3316 Oct 24 22:21 time_shm.c
+-rw-r--r--  1 mueedkhalid  staff       0 Oct 24 22:21 time_shm_output.txt
+
+Elapsed time: 0.004297 seconds
