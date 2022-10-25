@@ -50,11 +50,12 @@ int main(int argc, char const *argv[])
     }
 
     if (pid == 0)
-    {                                  // if pid is 0
-        gettimeofday(tv, NULL);        // tv is set to the current time
-        execvp(argv[1], &argv[1]);     // execute the command
-        perror("execvp");              // print the error message
-        exit(EXIT_FAILURE);            // exit with a failure
+    {                              // if pid is 0
+        gettimeofday(tv, NULL);    // tv is set to the current time
+        // execute the command with the arguments passed to the program
+        execvp(argv[1], (char *const *)argv + 1);
+        perror("execvp");          // print the error message
+        exit(EXIT_FAILURE);        // exit with a failure
     }
     else
     {                                 // if pid is not 0
