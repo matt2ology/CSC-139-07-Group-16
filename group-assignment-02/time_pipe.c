@@ -84,7 +84,7 @@ int main(int argc, char const *argv[])
         // elapsed_time = end_time - start_time
         timersub(&end_time, &start_time, &elapsed_time);
         // print the elapsed time in seconds and microseconds (tv_sec.tv_usec)
-        printf("Elapsed time: %ld.%06ld seconds (tv_sec.tv_usec) ",
+        printf("\n Elapsed time: %ld.%06ld seconds (tv_sec.tv_usec) ",
                (long)elapsed_time.tv_sec,
                (long)elapsed_time.tv_usec);
         exit(EXIT_SUCCESS); // exit with a success
