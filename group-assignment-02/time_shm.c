@@ -27,7 +27,8 @@ int main(int argc, char const *argv[])
     // char tmbuf[64];       // tmbuf is a character array of size 64
     struct timeval end_time, elapsed_time;
 
-    shmid = shmget(IPC_PRIVATE, sizeof(struct timeval), 0600); // shmid is set to the shared memory ID
+    // shmid is set to the shared memory ID of the shared memory segment
+    shmid = shmget(IPC_PRIVATE, sizeof(struct timeval), 0600);
     if (shmid == -1)
     {                       // if shmid is -1
         perror("shmget");   // print the error message
@@ -57,13 +58,20 @@ int main(int argc, char const *argv[])
         perror("execvp");          // print the error message
         exit(EXIT_FAILURE);        // exit with a failure
     }
-    else
-    {                                 // if pid is not 0
-        wait(NULL);                   // wait for the child process to terminate
+    else // if pid is not 0
+    {
+        // wait for the child process to terminate
+        wait(NULL);
+        // end_time is set to the current time
         gettimeofday(&end_time, NULL);
+        // elapsed_time is set to the difference between end_time and tv
         timersub(&end_time, &(*tv), &elapsed_time);
-        printf("\nElapsed time: %d.%06d seconds\n", elapsed_time.tv_sec, elapsed_time.tv_usec);
-        shmdt(tv);                    // detach the shared memory
+        // print the elapsed time in seconds and microseconds
+        // (6 decimal places) to the console
+        printf("\n Elapsed time: %ld.%06ld seconds (tv_sec.tv_usec) ",
+               (long)elapsed_time.tv_sec,
+               (long)elapsed_time.tv_usec);
+        shmdt(tv); // detach the shared memory segment from the address space of the calling process
         shmctl(shmid, IPC_RMID, NULL); // remove the shared memory
     }
 
